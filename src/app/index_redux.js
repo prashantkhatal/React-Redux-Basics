@@ -1,8 +1,4 @@
-import React from "react";
 import {createStore, combineReducers, applyMiddleware} from "redux";
-import {Home} from "./components/home";
-import {render} from "react-dom";
-
 import Logger from "redux-logger";
 
 /**
@@ -51,6 +47,18 @@ const UserReducer = (state = {name:'Prashant', age:27}, action) =>{
     return state;
 }
 
+/**
+ * Middle ware-
+ * It must call next method at end to continue execution else the reducers will not execute
+ * Here Function params name can custom out like next => myNext.....
+ */
+
+
+const MyLogger = (store) => (next) => (action) => {
+    console.log("My Logger =", action);
+    next(action);
+};
+
 let store = createStore(combineReducers({UserReducer, MathReducer}), {}, applyMiddleware(/*MyLogger,*/ Logger));
 
 //Executed once the state changes
@@ -59,5 +67,27 @@ store.subscribe(() =>{
 });
 
 
+store.dispatch({
+    type:'ADD',
+    value:5
+});
 
-render(<Home/>, window.document.getElementById('MyId'));
+store.dispatch({
+    type:'ADD',
+    value:45
+});
+
+store.dispatch({
+    type:'SUBTRACT',
+    value:27
+});
+
+store.dispatch({
+    type:'SET_NAME',
+    value:'Sachin'
+});
+
+store.dispatch({
+    type:'SET_AGE',
+    value:31
+});
