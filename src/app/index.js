@@ -1,5 +1,10 @@
-import {createStore, combineReducers} from "redux";
+import {createStore, combineReducers, applyMiddleware} from "redux";
+import Logger from "redux-logger";
 
+/**
+ * Reducers
+ * Actions Must have *type* Property and it must be defined
+ */
 const MathReducer = (state = {result: 0, lastValues: []}, action) => {
     switch (action.type){
         case 'ADD':
@@ -42,12 +47,23 @@ const UserReducer = (state = {name:'Prashant', age:27}, action) =>{
     return state;
 }
 
+/**
+ * Middle ware-
+ * It must call next method at end to continue execution else the reducers will not execute
+ * Here Function params name can custom out like next => myNext.....
+ */
 
-let store = createStore(combineReducers({UserReducer, MathReducer}));
+
+const MyLogger = (store) => (next) => (action) => {
+    console.log("My Logger =", action);
+    next(action);
+};
+
+let store = createStore(combineReducers({UserReducer, MathReducer}), {}, applyMiddleware(/*MyLogger,*/ Logger));
 
 //Executed once the state changes
 store.subscribe(() =>{
-    console.log('Yes Store Updated and new states are: ', store.getState());
+    //console.log('Yes Store Updated and new states are: ', store.getState());
 });
 
 
