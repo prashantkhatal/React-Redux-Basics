@@ -4,7 +4,8 @@ import user from "./reducers/UserReducer";
 import math from "./reducers/MathReducer";
 
 import Logger from "redux-logger";
-
+// import thunk from "redux-thunk";
+// import Promise from "redux-promise-middleware";
 
 const store = createStore(combineReducers({
     user,
