@@ -1,10 +1,10 @@
 import React from "react";
 import {connect} from "react-redux"
 
-import {Header} from "./Header";
+import {Header} from "../components/Header";
+import getActions from "../actions/UserActions";
 
 export class Home extends React.Component {
-
     render() {
         return (
             <div className="container">
@@ -35,17 +35,11 @@ const mapStatesToProps = (state) => {
 const mapDispatchToProps = (customDispatcher) => {
     return {
         setName: function (name) {
-            customDispatcher({
-                type:'SET_NAME',
-                value: name
-            });
+            customDispatcher(getActions('SET_NAME', name));
             return this;
         },
         setAge: (age) => {
-            customDispatcher({
-                type:'SET_AGE',
-                value: age
-            });
+            customDispatcher(getActions('SET_AGE', age));
             return this;
         }
     }
