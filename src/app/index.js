@@ -1,6 +1,9 @@
 import React from "react";
 import {createStore, combineReducers, applyMiddleware} from "redux";
-import {Home} from "./components/home";
+
+import {Provider} from "react-redux";
+
+import Home from "./components/home";
 import {render} from "react-dom";
 
 import Logger from "redux-logger";
@@ -51,13 +54,15 @@ const UserReducer = (state = {name:'Prashant', age:27}, action) =>{
     return state;
 }
 
-let store = createStore(combineReducers({UserReducer, MathReducer}), {}, applyMiddleware(/*MyLogger,*/ Logger));
+let store = createStore(combineReducers({user: UserReducer, math: MathReducer}), {}, applyMiddleware(/*MyLogger,*/ Logger));
 
-//Executed once the state changes
+//Executes once the state changes
 store.subscribe(() =>{
     //console.log('Yes Store Updated and new states are: ', store.getState());
 });
 
-
-
-render(<Home/>, window.document.getElementById('MyId'));
+render(
+    <Provider store={store}>
+        <Home/>
+    </Provider>,
+    window.document.getElementById('MyId'));
