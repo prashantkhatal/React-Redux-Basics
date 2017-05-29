@@ -1,16 +1,12 @@
-import {createStore, combineReducers, applyMiddleware} from "redux";
+import {createStore, applyMiddleware} from "redux";
 
-import user from "./reducers/UserReducer";
-import math from "./reducers/MathReducer";
+import reducers from './reducers';
 
 import Logger from "redux-logger";
 // import thunk from "redux-thunk";
 // import Promise from "redux-promise-middleware";
 
-const store = createStore(combineReducers({
-    user,
-    math
-}), {}, applyMiddleware(/*MyLogger,*/ Logger));
+const store = createStore(reducers, {}, applyMiddleware(/*MyLogger,*/ Logger));
 
 //Executes once the state changes
 // store.subscribe(() =>{
