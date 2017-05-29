@@ -32,6 +32,24 @@ const mapStatesToProps = (state) => {
     }
 };
 
+/*
+const mapStatesToProps = function(state){
+    return {
+         math: state.math,
+         user: state.user
+    };
+}
+
+const mapDispatchToProps = function(myDispatcher){
+    return {
+        methodName: function(arg){
+            myDispatcher({type:'my_type', value:'xyz'});
+        }
+    };
+}
+
+*/
+
 const mapDispatchToProps = (customDispatcher) => {
     return {
         setName: function (name) {
